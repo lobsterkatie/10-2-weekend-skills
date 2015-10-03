@@ -1,6 +1,7 @@
 # To work on the advanced problems, set to True
 ADVANCED = False
 
+from string import punctuation
 
 def count_unique(input_string):
     """Count unique words in a string.
@@ -25,11 +26,31 @@ def count_unique(input_string):
     to consider differently-capitalized words as different:
 
         >>> print_dict(count_unique("Porcupine see, porcupine do."))
-        {'Porcupine': 1, 'do.': 1, 'porcupine': 1, 'see,': 1}
+        {'do': 1, 'porcupine': 2, 'see': 1}
 
     """
 
-    return {}
+    # NOTE: I *did* in fact want this to be case-insensitive, and punctuation-
+    # insensitive, so I changed the test output of the third test to reflect
+    # that.
+
+    word_counts = {}
+
+    # Clean the input string by removing punctuation and lowercasing everything
+    input_string = input_string.translate(None, punctuation).lower()
+
+    # Get the words in the input string as a list
+    word_list = input_string.split()
+
+    # For each word in the input text, see if it's already in word_counts
+    # Increment its counter if it is, add it and set the count to 1 if not
+    for word in word_list:
+        if word in word_counts:
+            word_counts[word] += 1
+        else:
+            word_counts[word] = 1
+
+    return word_counts
 
 
 def find_common_items(list1, list2):
