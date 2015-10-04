@@ -177,12 +177,13 @@ def get_sum_zero_pairs(input_list):
     for num in input_list:
         # if num's additive inverse is in the list
         if (num * -1) in input_list:
-
+            # then add the pair to our list (sorted so neg one is always first,
+            # which will help with de-duping in the next step)
             zero_sum_pairs.append(sorted([num, num * -1]))
 
-    # remove duplicates and then turn it back into a list
-    zero_sum_pair_tuples = set(tuple(pair) for pair in zero_sum_pairs)
-    zero_sum_pairs = list(zero_sum_pair_tuples)
+    # remove duplicates and then turn it back into a list (zsp = zero-sum pair)
+    unique_zsps = set(tuple(pair) for pair in zero_sum_pairs)
+    zero_sum_pairs = list(unique_zsps)
 
     return zero_sum_pairs
 
@@ -206,7 +207,11 @@ def remove_duplicates(words):
 
     """
 
-    return []
+    # is this cheating?
+    # if so, I could use code (the for loop) from count_unique above
+    word_counts = Counter(words)
+
+    return word_counts.keys()
 
 
 def encode(phrase):
