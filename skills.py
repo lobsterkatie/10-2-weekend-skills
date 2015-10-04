@@ -401,12 +401,10 @@ def adv_get_top_letter(input_string):
                           key=itemgetter(1),  # the count
                           reverse=True)
 
-    #
-
     # pull the top entry/entries off of the list_by_freq list
     top_letter_count = list_by_freq[0][1]
     top_letters = [entry[0] for entry in list_by_freq if entry[1] == top_letter_count]
-    #           = [the letter                         if its count is tied for top]
+    #           = [the letter itself                  if its count is tied for top]
 
     return top_letters
 
@@ -427,7 +425,29 @@ def adv_alpha_sort_by_word_length(words):
 
     """
 
-    return []
+    # QUESTION FOR MEGGIE: though there's only one call to sorted() *here,*
+    # there are implicitly two, because there's another one in the function
+    # I've called. I saw on the 'Sorting How-To' page how one could sort one
+    # list by multiple keys (ie, break ties in the first sort based on a second
+    # criterion), but I can't figure out how to sort a bunch of inner lists
+    # and an outer list using only one call to sorted() (or .sort()). What's 
+    # the secret? I've used the 'key' argument a coulple of times in this 
+    # assignment, but I'm not seeing how that helps.
+
+    # ALSO, WHILE I HAVE YOU: there are a few other of the hints which I didn't
+    # end up using, and can't quite see how and/or why I would. Can we talk about
+    # those, too, please?
+
+    list_by_length = sort_by_word_length(words)
+
+    # entries are tuples of the form (word_length, list_of_words)
+    for i, entry in enumerate(list_by_length):
+        # replace list_of_words by sorted(list_of_words)
+        # (since entries are tuples, of course, this means replacing the
+        #  entire tuple)
+        list_by_length[i] = (entry[0], sorted(entry[1], key=str.lower))
+
+    return list_by_length
 
 
 ##############################################################################
