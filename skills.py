@@ -226,7 +226,12 @@ def encode(phrase):
         >>> encode("You are a beautiful, talented, brilliant, powerful musk ox.")
         'You drp d bpduouful, odlpnopd, brulludno, powprful musk ox.'
     """
-    return ''
+    phrase = phrase.replace("e", "p")
+    phrase = phrase.replace("a", "d")
+    phrase = phrase.replace("t", "o")
+    phrase = phrase.replace("i", "u")
+
+    return phrase
 
 
 def sort_by_word_length(words):
