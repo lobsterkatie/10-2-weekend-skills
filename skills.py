@@ -172,7 +172,19 @@ def get_sum_zero_pairs(input_list):
 
     """
 
-    return []
+    zero_sum_pairs = []
+
+    for num in input_list:
+        # if num's additive inverse is in the list
+        if (num * -1) in input_list:
+
+            zero_sum_pairs.append(sorted([num, num * -1]))
+
+    # remove duplicates and then turn it back into a list
+    zero_sum_pair_tuples = set(tuple(pair) for pair in zero_sum_pairs)
+    zero_sum_pairs = list(zero_sum_pair_tuples)
+
+    return zero_sum_pairs
 
 
 def remove_duplicates(words):
