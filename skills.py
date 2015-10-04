@@ -1,8 +1,10 @@
 # To work on the advanced problems, set to True
-ADVANCED = False
+ADVANCED = True
 
 from string import punctuation
 from collections import Counter
+from operator import itemgetter
+
 
 def count_unique(input_string):
     """Count unique words in a string.
@@ -274,7 +276,12 @@ def sort_by_word_length(words):
         else:
             word_length_dict[length] = [word]
 
-    return list(word_length_dict.iteritems())
+    # create a list from our dictionary, and sort it by word-length (the first
+    # entry in each tuple)
+    list_by_length = sorted(list(word_length_dict.iteritems()),
+                            key=itemgetter(0))
+
+    return list_by_length
 
 
 def get_pirate_talk(phrase):
@@ -378,7 +385,16 @@ def adv_get_top_letter(input_string):
 
     """
 
-    return ''
+    # count the instances of each character in the input string
+    counts = Counter(input_string)
+
+    # create a list out of the 'counts' dictionary, sorted in descending order
+    # by letter frequency
+    list_by_freq = sorted(list(counts.iteritems()),
+                          key=lambda entry: entry[1],
+                          reverse=True)
+
+    top_letters = []
 
 
 def adv_alpha_sort_by_word_length(words):
