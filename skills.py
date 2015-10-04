@@ -226,10 +226,24 @@ def encode(phrase):
         >>> encode("You are a beautiful, talented, brilliant, powerful musk ox.")
         'You drp d bpduouful, odlpnopd, brulludno, powprful musk ox.'
     """
+
+    # Hmmm... this also kinda feels like cheating...
+    # So, without writing the whole thing out, one could do it manually thus:
+    #   - iterate an index i through range(:len(phrase))
+    #   - have four if's checking phrase[i] against e, a, t, and i, respectively
+    #   - under each if, replace that character with the new one and continue
     phrase = phrase.replace("e", "p")
     phrase = phrase.replace("a", "d")
     phrase = phrase.replace("t", "o")
     phrase = phrase.replace("i", "u")
+
+    # it should also be noted that if you wanted to do a full replacement
+    # encoding (every letter gets replaced by a new one), you couldn't do it
+    # sequentially like this (a new 'a,' for instance, would look the same as
+    # an old 'a,' and would therefore get written over if the replace-the-a's
+    # pass came after the replace-with-an-a pass). You'd have to replace each
+    # letter with a non-letter (digit, punctuation mark, etc) first and then
+    # replace each of those with the correct new letter
 
     return phrase
 
@@ -248,7 +262,19 @@ def sort_by_word_length(words):
 
     """
 
-    return []
+    word_length_dict = {}
+
+    for word in words:
+        length = len(word)
+        # if there are already words of that length in the dictionary
+        if word_length_dict.get(length) is not None:
+            # then add current word to the list of words of that length
+            word_length_dict[length].append(word)
+        # otherwise, add it as a new dictionary entry
+        else:
+            word_length_dict[length] = [word]
+
+    return list(word_length_dict.iteritems())
 
 
 def get_pirate_talk(phrase):
