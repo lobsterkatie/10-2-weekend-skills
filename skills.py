@@ -98,7 +98,7 @@ def find_common_items(list1, list2):
             # then add that element the list of in-common elements
             # here is where I think the output doesn't make sense
             # changing 'max' to 'min,' however, would make it make sense
-            num_copies = max(element_counts1[element], 
+            num_copies = max(element_counts1[element],
                              element_counts2[element])
             for i in range(num_copies):
                 common_elements.append(element)
@@ -128,7 +128,19 @@ def find_unique_common_items(list1, list2):
 
     """
 
-    return []
+    common_elements = []
+
+    # get a count of all the elements of each list
+    element_counts1 = Counter(list1)
+    element_counts2 = Counter(list2)
+
+    for element in element_counts1:
+        # if element (from first list) is also in second list
+        if element_counts2[element] != 0:
+            # then add that element the list of in-common elements
+            common_elements.append(element)
+
+    return common_elements
 
 
 def get_sum_zero_pairs(input_list):
