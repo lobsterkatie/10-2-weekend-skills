@@ -320,7 +320,38 @@ def get_pirate_talk(phrase):
 
     """
 
-    return ""
+    eng_to_pirate_dict = {"sir": "matey",
+                          "hotel": "fleabag inn",
+                          "student": "swabbie",
+                          "boy": "matey",
+                          "madam": "proud beauty",
+                          "professor": "foul blaggart",
+                          "restaurant": "galley",
+                          "your": "yer",
+                          "excuse": "arr",
+                          "students": "swabbies",
+                          "are": "be",
+                          "lawyer": "foul blaggart",
+                          "the": "th'",
+                          "restroom": "head",
+                          "my": "me",
+                          "hello": "avast",
+                          "is": "be",
+                          "man": "matey"}
+
+    # turn the string into a list of words
+    phrase_as_list = phrase.split()
+
+    # go through each word in turn, replacing it with its pirate translation,
+    # if applicable
+    for i, word in enumerate(phrase_as_list):
+        if word in eng_to_pirate_dict:
+            phrase_as_list[i] = eng_to_pirate_dict[word]
+
+    # turn the list back into a string
+    pirate_version = " ".join(phrase_as_list)
+
+    return pirate_version
 
 # End of skills. See below for advanced problems.
 # To work on them, set ADVANCED=True at the top of this file.
