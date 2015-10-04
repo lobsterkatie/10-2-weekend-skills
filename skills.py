@@ -1,7 +1,8 @@
 # To work on the advanced problems, set to True
 ADVANCED = True
 
-from string import punctuation
+from string import punctuation as PUNC_LIST
+from string import letters as LETTER_LIST
 from collections import Counter
 from operator import itemgetter
 
@@ -40,7 +41,8 @@ def count_unique(input_string):
     word_counts = {}
 
     # Clean the input string by removing punctuation and lowercasing everything
-    input_string = input_string.translate(None, punctuation).lower()
+    input_string = input_string.translate(None, PUNC_LIST)
+    input_string = input_string.lower()
 
     # Get the words in the input string as a list
     word_list = input_string.split()
@@ -388,13 +390,25 @@ def adv_get_top_letter(input_string):
     # count the instances of each character in the input string
     counts = Counter(input_string)
 
-    # create a list out of the 'counts' dictionary, sorted in descending order
-    # by letter frequency
+    # we only want to count letters, so pull any other entries
+    for entry_key in counts.keys():
+        if entry_key not in LETTER_LIST:
+            del counts[entry_key]
+
+    # create a list version of the 'counts' dictionary, sorted in descending order
+    # by letter frequency (entries will be tuples like: ('a', 10))
     list_by_freq = sorted(list(counts.iteritems()),
-                          key=lambda entry: entry[1],
+                          key=itemgetter(1),  # the count
                           reverse=True)
 
-    top_letters = []
+    #
+
+    # pull the top entry/entries off of the list_by_freq list
+    top_letter_count = list_by_freq[0][1]
+    top_letters = [entry[0] for entry in list_by_freq if entry[1] == top_letter_count]
+    #           = [the letter                         if its count is tied for top]
+
+    return top_letters
 
 
 def adv_alpha_sort_by_word_length(words):
